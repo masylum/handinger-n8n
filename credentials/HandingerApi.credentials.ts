@@ -1,11 +1,7 @@
-import {
-	IAuthenticateGeneric,
-	ICredentialType,
-	INodeProperties,
-} from 'n8n-workflow';
+import { IAuthenticateGeneric, ICredentialType, INodeProperties } from 'n8n-workflow';
 
 export class HandingerApi implements ICredentialType {
-	name = 'HandingerApi';
+	name = 'handingerApi';
 	displayName = 'Handinger API';
 	documentationUrl = 'https://handinger.com/';
 	properties: INodeProperties[] = [
@@ -13,15 +9,16 @@ export class HandingerApi implements ICredentialType {
 			displayName: 'API Key',
 			name: 'apiKey',
 			type: 'string',
+			typeOptions: { password: true },
 			default: '',
 		},
 	];
-	authenticate = {
+	authenticate: IAuthenticateGeneric = {
 		type: 'generic',
 		properties: {
 			headers: {
-				Authorization: '=Bearer {{$credentials.apiKey}}'
-			}
+				Authorization: '=Bearer {{$credentials.apiKey}}',
+			},
 		},
-	} as IAuthenticateGeneric;
+	};
 }
